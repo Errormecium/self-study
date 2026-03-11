@@ -20,4 +20,152 @@ git clone [path]
 
 如 `git clone https://github.com/Errormecium/Git`
 
+## 工作区域和文件状态
 
+```mermaid
+graph TD
+A(Working Directory : .git所在目录) --> B(Staging Area : .git/index)
+    B --> C(Local Repository : .git/objects)
+```
+
+add: Working Directory 2 Staging Area
+
+commit: Staging Area 2 Local Repository
+
+## 添加和提交文件
+```bash
+git status
+```
+查看仓库状态：可以查看当前分支、untracked文件、toBeAdded文件
+
+```bash
+git ls-files
+```
+
+查看暂存区文件
+
+```bash
+# add file1.txt
+git add file1.txt
+# add all file with suffix txt
+git add *.txt
+# add all file
+git .
+```
+
+把untracked文件添加到暂存区中
+
+```bash
+# commit the file with short log
+git commit -m "commita"
+# commit the file and write the log, after the cmd enter the vim to write log. :wq quit
+git commit
+```
+
+只有暂存区中的文件才能commit进入local repo
+
+```bash
+# check all commit log
+git log
+# check the commit log briefly
+git log --oneline
+```
+
+查看commit日志
+
+## reset回退版本
+
+```bash
+git reset --arg [num]
+```
+
+|  参数   | 工作区  | 暂存区 |
+|  ----  | ----  | ---- |
+| --soft  | √ |  √  |
+| --hard  | × |  ×  |
+| --mixed  | √ |  ×  |
+
+soft 就是回退到最后一次commit前
+
+mixed 回退commit并且把最后一次commit的文件从暂存区拿走
+
+hard 会把未跟踪的文件也删除了
+
+如 `git reset --soft 9b3ad73`
+
+```bash
+git reflog
+```
+
+可以看见平时的状态用来撤回操作
+
+## diff 查看差异
+```bash
+git diff [file]
+```
+
+显示暂存区与工作区的差异
+
+```bash
+git diff --staged [file]
+# or
+git diff --cached [file]
+```
+
+显示暂存区与上一次提交的差异
+
+```bash
+it diff [first-branch]...[second-branch]
+```
+
+显示两次指定提交的差异
+
+## 删除文件
+```bash
+# 查看工作区文件
+ls
+# 查看暂存区文件 --stage显示更详细的信息
+git ls-files [--stage]
+# 查看本地仓库文件 -r是将文件夹中的文件递归列出 --name-only是只显示文件名
+git ls-tree [-r] HEAD [--name-only]
+```
+
+
+```bash
+del [file]
+git add [file]
+```
+
+从工作区中删除文件，然后在暂存区追加更新该文件的工作区状态(暂存区中删除)
+
+```bash
+git rm [file]
+```
+
+工作区和暂存区同时删除该文件
+
+```bash
+git rm --cached [file]
+```
+
+把文件从暂存区删除，但保留在当前工作区中
+
+```bash
+git rm [file]
+git commit -m "[log content]"
+```
+
+删除工作区和暂存区的文件后继续更新本地仓库使得仓库中文件也删除
+
+## .gitignore文件
+在与.git同级的根目录下创建`.gitignore`文件，添加文件名、通配符结合的文件名等，就可以使得指定文件被忽略，无法add和commit
+
+注意生效前提是修改`.gitignore`时指定文件不在版本库中
+
+注意的是powershell使用echo会出现编码问题
+
+```bash
+"" | Out-File .gitignore -Encoding utf8
+```
+
+这个是powershell下声控UTF-8字符编码的空.gitignore文件的命令
