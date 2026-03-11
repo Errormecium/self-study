@@ -1,10 +1,10 @@
 # git的使用
 ## 新建仓库
+
+创建一个名为`name`的仓库(文件夹):
 ```bash
 git init [name]
 ```
-
-创建一个名为`name`的仓库(文件夹)
 
 然后进入仓库可以看见一个`.git`隐藏文件
 
@@ -12,11 +12,11 @@ git init [name]
 
 `cd .git` + `ls` 查看仓库配置
 
+
+从某个路径下克隆一个仓库到本地:
 ```bash
 git clone [path]
 ```
-
-从某个路径下克隆一个仓库到本地
 
 如 `git clone https://github.com/Errormecium/Git`
 
@@ -33,17 +33,18 @@ add: Working Directory 2 Staging Area
 commit: Staging Area 2 Local Repository
 
 ## 添加和提交文件
+
+`git status` 查看仓库状态：可以查看当前分支、untracked文件、toBeAdded文件:
 ```bash
 git status
 ```
-查看仓库状态：可以查看当前分支、untracked文件、toBeAdded文件
 
+`git ls-files` 查看暂存区文件:
 ```bash
 git ls-files
 ```
 
-查看暂存区文件
-
+`git add` 把untracked文件添加到暂存区中:
 ```bash
 # add file1.txt
 git add file1.txt
@@ -53,8 +54,7 @@ git add *.txt
 git .
 ```
 
-把untracked文件添加到暂存区中
-
+`git commit` 只有暂存区中的文件才能commit进入local repo:
 ```bash
 # commit the file with short log
 git commit -m "commita"
@@ -62,16 +62,13 @@ git commit -m "commita"
 git commit
 ```
 
-只有暂存区中的文件才能commit进入local repo
-
+`git log` 查看commit日志:
 ```bash
 # check all commit log
 git log
 # check the commit log briefly
 git log --oneline
 ```
-
-查看commit日志
 
 ## reset回退版本
 
@@ -93,34 +90,33 @@ hard 会把未跟踪的文件也删除了
 
 如 `git reset --soft 9b3ad73`
 
+`git reflog` 可以看见平时的状态用来撤回操作:
 ```bash
 git reflog
 ```
 
-可以看见平时的状态用来撤回操作
-
 ## diff 查看差异
+
+显示暂存区与工作区的差异:
 ```bash
 git diff [file]
 ```
 
-显示暂存区与工作区的差异
-
+显示暂存区与上一次提交的差异:
 ```bash
 git diff --staged [file]
 # or
 git diff --cached [file]
 ```
 
-显示暂存区与上一次提交的差异
-
+显示两次指定提交的差异:
 ```bash
 it diff [first-branch]...[second-branch]
 ```
 
-显示两次指定提交的差异
-
 ## 删除文件
+
+查看文件状态:
 ```bash
 # 查看工作区文件
 ls
@@ -130,32 +126,27 @@ git ls-files [--stage]
 git ls-tree [-r] HEAD [--name-only]
 ```
 
-
+从工作区中删除文件，然后在暂存区追加更新该文件的工作区状态(暂存区中删除):
 ```bash
 del [file]
 git add [file]
 ```
 
-从工作区中删除文件，然后在暂存区追加更新该文件的工作区状态(暂存区中删除)
-
+工作区和暂存区同时删除该文件:
 ```bash
 git rm [file]
 ```
 
-工作区和暂存区同时删除该文件
-
+把文件从暂存区删除，但保留在当前工作区中:
 ```bash
 git rm --cached [file]
 ```
 
-把文件从暂存区删除，但保留在当前工作区中
-
+删除工作区和暂存区的文件后继续更新本地仓库使得仓库中文件也删除:
 ```bash
 git rm [file]
 git commit -m "[log content]"
 ```
-
-删除工作区和暂存区的文件后继续更新本地仓库使得仓库中文件也删除
 
 ## .gitignore文件
 在与.git同级的根目录下创建`.gitignore`文件，添加文件名、通配符结合的文件名等，就可以使得指定文件被忽略，无法add和commit
@@ -164,8 +155,7 @@ git commit -m "[log content]"
 
 注意的是powershell使用echo会出现编码问题
 
+这个是powershell下声控UTF-8字符编码的空.gitignore文件的命令:
 ```bash
 "" | Out-File .gitignore -Encoding utf8
 ```
-
-这个是powershell下声控UTF-8字符编码的空.gitignore文件的命令
