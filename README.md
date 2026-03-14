@@ -186,3 +186,63 @@ git push
 ```bash
 git pull
 ```
+## 分支简介和基本操作
+查看分支图:
+```bash
+git log --oneline --graph --decorate --all
+```
+
+查看分支列表：
+```bash
+git branch
+```
+
+创建分支：
+```bash
+git branch <branch-name>
+```
+
+切换分支:
+```bash
+git switch <branch-name>
+```
+
+合并分支:
+```bash
+# 在某分支中使用该命令，则将指定的分支合并到当前分支中
+git merge <branch-name>
+```
+
+删除分支:
+```bash
+# 已合并
+git branch -d <branch-name>
+# 未合并
+git branch -D <branch-name>
+```
+
+一般提交信息用"main:1"表示这是main分支的第一次提交
+
+## 解决合并冲突
+
+两个分支修改了同一个文件的同一处位置时会产生冲突
+
+解决方法：
+- 手工修改冲突文件合并冲突内容
+- 添加暂存区 add
+- 提交修改 commit
+
+commit后将会自动合并
+
+如果想要中止合并，则使用:
+```bash
+git merge --abort
+```
+## rebase
+
+嫁接分支:
+```bash
+## 会将main分支在两分支公共祖先后的部分嫁接到dev后
+git switch main
+git rebase dev
+```
